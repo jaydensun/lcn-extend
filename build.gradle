@@ -13,14 +13,20 @@ repositories {
 }
 
 dependencies {
-    compile 'com.codingapi:tx-client:4.1.0'
-    compile 'org.springframework.cloud:spring-cloud-starter-zookeeper-discovery:1.1.1.RELEASE'
-    compile 'org.springframework.boot:spring-boot-starter-web:1.5.10.RELEASE'
-    compile 'io.reactivex:rxjava:1.1.10'
-    compile 'org.apache.httpcomponents:httpclient:4.5.1'
-    compile ('org.hibernate:hibernate-validator:4.3.2.Final') {
-        force=true
+    compile ('com.codingapi:transaction-dubbo:4.1.0') {
+        exclude group: 'org.slf4j', module: 'slf4j-simple'
+        exclude group: 'org.slf4j', module: 'slf4j-jdk14'
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
     }
+    compile 'com.codingapi:tx-plugins-db:4.1.0'
+    compile ('org.springframework.cloud:spring-cloud-starter-zookeeper-discovery:1.1.1.RELEASE') {
+        exclude group: 'ch.qos.logback', module: 'logback-classic'
+    }
+    compile 'org.springframework:spring-web:4.3.14.RELEASE'
+    compile 'org.apache.curator:curator-client:2.11.1'
+    compile 'org.apache.curator:curator-framework:2.11.1'
+    compile 'com.netflix.archaius:archaius-core:0.7.4'
+    compile ('org.hibernate:hibernate-validator:4.3.2.Final')
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
