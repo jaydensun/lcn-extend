@@ -1,5 +1,5 @@
 group 'com.sf.ground'
-version '1.0.3'
+version '1.0.4'
 
 apply plugin: 'java'
 apply plugin: 'maven'
@@ -25,7 +25,7 @@ dependencies {
     compile 'com.codingapi:transaction-dubbo:4.1.0'
     compile 'com.codingapi:tx-plugins-db:4.1.0'
     compile 'org.springframework.cloud:spring-cloud-starter-zookeeper-discovery:1.1.1.RELEASE'
-    compile 'org.springframework:spring-web:4.3.14.RELEASE'
+    compile 'org.springframework:spring-web:4.3.15.RELEASE'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 

@@ -1,12 +1,15 @@
 package com.sf.ground.lcn.extend;
 
 import com.codingapi.tx.netty.service.TxManagerHttpRequestService;
+import org.apache.http.entity.ContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
@@ -50,7 +53,15 @@ public class TxManagerHttpRequestServiceImpl implements TxManagerHttpRequestServ
     @Override
     public String httpPost(String url, String params) {
         try {
-            return restTemplate.postForObject(url, params, String.class);
+            Object request;
+            if (params.contains("&")) {
+                HttpHeaders headers = new HttpHeaders();
+                headers.add(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_FORM_URLENCODED.getMimeType());
+                request = new HttpEntity<>(params, headers);
+            } else {
+                request = params;
+            }
+            return restTemplate.postForObject(url, request, String.class);
         } catch (Exception e) {
             logger.error("http post failed", e);
             throw new RuntimeException(e);
